@@ -897,7 +897,7 @@ macro_rules! define_maps {
 
                 profq_msg!(tcx,
                     ProfileQueriesMsg::QueryBegin(
-                        span.clone(),
+                        span.data(),
                         QueryMsg::$name(profq_key!(tcx, key))
                     )
                 );
