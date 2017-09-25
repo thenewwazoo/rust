@@ -46,6 +46,9 @@ mod imp;
 #[path = "redox/mod.rs"]
 mod imp;
 
+#[cfg(target_os = "cmsis")]
+#[path = "cmsis/mod.rs"]
+mod imp;
 
 // Import essential modules from both platforms when documenting.
 
