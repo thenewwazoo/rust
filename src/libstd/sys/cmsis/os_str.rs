@@ -8,7 +8,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-/// The underlying OsString/OsStr implementation on Unix systems: just
+/// The underlying OsString/OsStr implementation on CMSIS RTOS systems: just
 /// a `Vec<u8>`/`[u8]`.
 
 use borrow::Cow;
@@ -20,11 +20,11 @@ use std_unicode::lossy::Utf8Lossy;
 
 #[derive(Clone, Hash)]
 pub struct Buf {
-    pub inner: Vec<u8>
+    pub inner: Vec<u8>,
 }
 
 pub struct Slice {
-    pub inner: [u8]
+    pub inner: [u8],
 }
 
 impl fmt::Debug for Slice {
@@ -71,9 +71,7 @@ impl Buf {
 
     #[inline]
     pub fn with_capacity(capacity: usize) -> Buf {
-        Buf {
-            inner: Vec::with_capacity(capacity)
-        }
+        Buf { inner: Vec::with_capacity(capacity) }
     }
 
     #[inline]
@@ -106,7 +104,7 @@ impl Buf {
     }
 
     pub fn into_string(self) -> Result<String, Buf> {
-        String::from_utf8(self.inner).map_err(|p| Buf { inner: p.into_bytes() } )
+        String::from_utf8(self.inner).map_err(|p| Buf { inner: p.into_bytes() })
     }
 
     pub fn push_slice(&mut self, s: &Slice) {
