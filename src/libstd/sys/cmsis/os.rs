@@ -29,13 +29,13 @@ impl Iterator for Env {
 }
 
 pub fn env() -> Env {
-    Env {}
+    Env
 }
 
 pub struct SplitPaths;
 
 pub fn split_paths(unparsed: &OsStr) -> SplitPaths {
-    SplitPaths {}
+    SplitPaths
 }
 
 impl<'a> Iterator for SplitPaths<'a> {

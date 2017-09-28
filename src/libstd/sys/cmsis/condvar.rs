@@ -1,11 +1,13 @@
 
 use cell::UnsafeCell;
+use sys::mutex::Mutex;
+use time::Duration;
 
-pub struct Condvar {}
+pub struct Condvar;
 
 impl Condvar {
     pub const fn new() -> Condvar {
-        Condvar {}
+        Condvar
     }
 
     #[inline]

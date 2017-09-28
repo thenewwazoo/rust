@@ -1,8 +1,6 @@
 
 #![allow(dead_code)] // runtime init functions not used during testing
 
-use core::compile_error;
-
 use ffi::OsString;
 use marker::PhantomData;
 use vec;

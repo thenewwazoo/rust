@@ -1,11 +1,13 @@
 
+use ffi::OsString;
+use io;
+use path::{Path, PathBuf};
+use sys::time::SystemTime;
+
 // CMSIS RTOS has no concept of a filesystem
 macro_rules! unimpl {
     () => (return Err(io::Error::new(io::ErrorKind::Other, "CMSIS RTOS has no concept of a file"));)
 }
-
-use io::{self, Error, ErrorKind, SeekFrom};
-use path::{Path, PathBuf};
 
 pub struct File;
 
@@ -64,6 +66,8 @@ impl FileType {
 pub struct ReadDir;
 
 impl Iterator for ReadDir {
+    type Item = io::Result<DirEntry>;
+
     fn next(&mut self) -> Option<io::Result<DirEntry>> {
         None
     }
@@ -123,8 +127,8 @@ impl DirBuilder {
     }
 
     pub fn mkdir(&self, p: &Path) -> io::Result<()> {
-        Err(Error::new(
-            ErrorKind::Other,
+        Err(io::Error::new(
+            io::ErrorKind::Other,
             "CMSIS RTOS has no concept of a file",
         ))
     }
