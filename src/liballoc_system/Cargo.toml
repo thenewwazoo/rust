@@ -15,5 +15,5 @@ core = { path = "../libcore" }
 libc = { path = "../rustc/libc_shim" }
 
 # See comments in the source for what this dependency is
-[target.'cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))'.dependencies]
+[target.'cfg(any(target_os = "cmsis", all(target_arch = "wasm32", not(target_os = "emscripten"))))'.dependencies]
 dlmalloc = { path = "../rustc/dlmalloc_shim" }

@@ -480,6 +480,9 @@ mod platform {
 // the instructions are also pretty "global" and this is the "global" allocator
 // after all!
 //
+// We also take an opportunity to use this for the CMSIS RTOS target, as it doesn't
+// specify a heap allocator by default.
+//
 // The current allocator here is the `dlmalloc` crate which we've got included
 // in the rust-lang/rust repository as a submodule. The crate is a port of
 // dlmalloc.c from C to Rust and is basically just so we can have "pure Rust"
@@ -487,7 +490,7 @@ mod platform {
 //
 // The crate itself provides a global allocator which on wasm has no
 // synchronization as there are no threads!
-#[cfg(all(target_arch = "wasm32", not(target_os = "emscripten")))]
+#[cfg(any(target_os = "cmsis", all(target_arch = "wasm32", not(target_os = "emscripten"))))]
 mod platform {
     extern crate dlmalloc;
 

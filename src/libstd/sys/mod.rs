@@ -48,6 +48,9 @@ cfg_if! {
     } else if #[cfg(target_arch = "wasm32")] {
         mod wasm;
         pub use self::wasm::*;
+    } else if #[cfg(target_os = "cmsis")] {
+        mod cmsis;
+        pub use self::cmsis::*;
     } else {
         compile_error!("libstd doesn't compile for this platform yet");
     }
@@ -62,7 +65,7 @@ cfg_if! {
     if #[cfg(any(unix, target_os = "redox"))] {
         // On unix we'll document what's already available
         pub use self::ext as unix_ext;
-    } else if #[cfg(any(target_os = "cloudabi", target_arch = "wasm32"))] {
+    } else if #[cfg(any(target_os = "cloudabi", target_arch = "wasm32", target_os="cmsis"))] {
         // On CloudABI and wasm right now the module below doesn't compile
         // (missing things in `libc` which is empty) so just omit everything
         // with an empty module

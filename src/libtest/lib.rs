@@ -979,6 +979,7 @@ fn use_color(opts: &TestOpts) -> bool {
 
 #[cfg(any(target_os = "cloudabi",
           target_os = "redox",
+          target_os = "cmsis"
           all(target_arch = "wasm32", not(target_os = "emscripten"))))]
 fn stdout_isatty() -> bool {
     // FIXME: Implement isatty on Redox
@@ -1191,6 +1192,11 @@ fn get_concurrency() -> usize {
         1
     }
 
+    #[cfg(target_os = "cmsis")]
+    fn num_cpus() -> usize {
+        1
+    }
+
     #[cfg(any(target_os = "android",
               target_os = "cloudabi",
               target_os = "emscripten",
@@ -1351,8 +1357,9 @@ pub fn run_test(opts: &TestOpts,
     let TestDescAndFn {desc, testfn} = test;
 
     let ignore_because_panic_abort =
-        cfg!(target_arch = "wasm32") &&
-        !cfg!(target_os = "emscripten") &&
+        ((cfg!(target_arch = "wasm32") &&
+        !cfg!(target_os = "emscripten")) ||
+        cfg!(target_os = "cmsis")) &&
         desc.should_panic != ShouldPanic::No;
 
     if force_ignore || desc.ignore || ignore_because_panic_abort {

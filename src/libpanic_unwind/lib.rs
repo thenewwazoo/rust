@@ -83,6 +83,10 @@ mod imp;
 #[path = "wasm32.rs"]
 mod imp;
 
+#[cfg(target_os = "cmsis")]
+#[path = "cmsis_rtos.rs"]
+mod imp;
+
 mod dwarf;
 mod windows;
 

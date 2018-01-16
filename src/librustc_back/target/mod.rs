@@ -228,6 +228,8 @@ supported_targets! {
     ("thumbv7m-none-eabi", thumbv7m_none_eabi),
     ("thumbv7em-none-eabi", thumbv7em_none_eabi),
     ("thumbv7em-none-eabihf", thumbv7em_none_eabihf),
+    ("thumbv7m-cmsis-eabi", cmsis_none_eabi),
+    ("thumbv7m-cmsis-eabihf", cmsis_none_eabihf),
 
     ("msp430-none-elf", msp430_none_elf),
 

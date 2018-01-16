@@ -9,12 +9,12 @@
 // except according to those terms.
 
 use error::Error;
-#[cfg(target_arch = "wasm32")]
+#[cfg(any(target_arch = "wasm32", target_os = "cmsis"))]
 mod exit {
     pub const SUCCESS: i32 = 0;
     pub const FAILURE: i32 = 1;
 }
-#[cfg(not(target_arch = "wasm32"))]
+#[cfg(all(not(target_arch = "wasm32"), not(target_os = "cmsis")))]
 mod exit {
     use libc;
     pub const SUCCESS: i32 = libc::EXIT_SUCCESS;
